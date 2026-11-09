@@ -15,6 +15,8 @@ from perception import MockBackend  # noqa: E402
 from pipeline import Pipeline, load_config  # noqa: E402
 
 CFG = load_config(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "configs", "default.yaml"))
+# Tests start from an unsurveyed camera; each test sets the pose it needs.
+CFG["camera"]["mount"].update(height_m=None, pitch_deg=None, x_m=None)
 CAM = CFG["camera"]
 POSE = dict(height_m=0.11, pitch_deg=18.0, x_m=0.30, y_m=0.02, roll_deg=0.0, yaw_deg=1.5)
 GRID = np.array([[u, v] for u in (5, 80, 160, 240, 315) for v in (3, 30, 60, 90, 117)], float)

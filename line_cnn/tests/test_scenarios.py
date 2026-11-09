@@ -16,6 +16,8 @@ from pipeline import Pipeline, load_config  # noqa: E402
 from tracking import PathState  # noqa: E402
 
 CFG = load_config(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "configs", "default.yaml"))
+# Tests start from an unsurveyed camera; each test sets the pose it needs.
+CFG["camera"]["mount"].update(height_m=None, pitch_deg=None, x_m=None)
 FRAME = np.zeros((720, 1280, 3), np.uint8)
 DT = 1 / 30.0
 

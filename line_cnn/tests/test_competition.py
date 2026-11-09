@@ -23,6 +23,8 @@ IMG = [[100, 100], [220, 100], [130, 50], [190, 50]]
 GND = [[0.5, 0.2], [0.5, -0.2], [1.5, 0.2], [1.5, -0.2]]
 PROJ = GroundProjector.from_points(IMG, GND)
 CFG = load_config(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "configs", "default.yaml"))
+# Tests start from an unsurveyed camera; each test sets the pose it needs.
+CFG["camera"]["mount"].update(height_m=None, pitch_deg=None, x_m=None)
 SPACING = CFG["track"]["lane_center_spacing_m"]
 BUMPER_X = CFG["vehicle"]["wheelbase_m"] + CFG["vehicle"]["front_overhang_m"]
 FRAME = np.zeros((720, 1280, 3), np.uint8)

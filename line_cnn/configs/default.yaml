@@ -1,7 +1,7 @@
 # Vehicle values come from hybrid_drive_control V14.7 (README / hybrid_drive.yaml).
 vehicle:
   wheelbase_m: 0.320            # measured
-  width_m: 0.281                # hybrid_drive README
+  width_m: 0.283                # measured 2026-11-09 (28.3-28.4 cm)
   front_overhang_m: 0.055       # hybrid_drive README (LiDAR to front bumper 0.110 m)
   max_steer_deg: 30.0           # approximate endpoint measurement, midpoints not calibrated
   steer_rate_norm_per_s: 6.0    # hybrid_drive auto_steer_slew_min_per_sec
@@ -37,9 +37,9 @@ camera:
   # Mount pose is NOT surveyed yet (the team's 11/02 report says so too). Measure these three
   # and the pipeline switches to metric geometry on its own. Pitch is positive looking down.
   mount:
-    height_m: null      # lens center above the floor
-    pitch_deg: null     # angle below horizontal of the optical axis
-    x_m: null           # lens center ahead of the rear axle
+    height_m: 0.21      # lens center above the floor, measured 2026-11-09
+    pitch_deg: 0.0      # angle below horizontal of the optical axis; mounted level (approx.), 2026-11-09
+    x_m: 0.27           # lens center ahead of the rear axle, measured approx. 2026-11-09
     y_m: 0.0            # + = left of the car's center line
     roll_deg: 0.0
     yaw_deg: 0.0
