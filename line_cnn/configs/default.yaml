@@ -1,0 +1,89 @@
+# Vehicle values come from hybrid_drive_control V14.7 (README / hybrid_drive.yaml).
+vehicle:
+  wheelbase_m: 0.320            # measured
+  width_m: 0.281                # hybrid_drive README
+  front_overhang_m: 0.055       # hybrid_drive README (LiDAR to front bumper 0.110 m)
+  max_steer_deg: 30.0           # approximate endpoint measurement, midpoints not calibrated
+  steer_rate_norm_per_s: 6.0    # hybrid_drive auto_steer_slew_min_per_sec
+  hardware_enable: false        # must stay false: this package never drives actuators
+
+# Competition track, from "2026 자율주행 경연대회 트랙 구성.pptx" (2026-11-04). Meters.
+track:
+  tape_width_m: 0.03
+  lane_inner_width_m: 0.65
+  lane_center_spacing_m: 0.68   # inner 0.65 + one tape 0.03; slide 7 also gives 68 cm
+  corner_radius_center_m: 0.50  # lane center; inner tape 0.16, outer tape 0.84
+  corner_radius_outer_tape_m: 0.84
+
+speed:
+  cruise_mps: 0.80              # safe default, below hybrid_drive target_speed_max 1.15
+  min_mps: 0.30                 # safe default
+  max_mps: 1.15                 # hybrid_drive target_speed_max_mps
+  rise_mps2: 1.0
+  fall_mps2: 1.8
+
+# Camera: the OAK-D-Lite is mounted upside down, so the raw /oak/rgb/image_raw is rotated 180
+# degrees; the model needs it upright. K and D come from camera_info.json of the team's
+# sensors_20260922_181049 recording (1280x720, rational polynomial). The node overrides them
+# with the live /oak/rgb/camera_info. Set rotate180 to false if the topic is already upright
+# (check with main.py --show) or for video files that were saved upright (main.py --upright).
+camera:
+  rotate180: true
+  width: 1280
+  height: 720
+  K: [908.9055786132812, 0.0, 619.7097778320312, 0.0, 908.6591186523438, 368.8159484863281, 0.0, 0.0, 1.0]
+  D: [-2.7475876808166504, -2.983961820602417, -0.00011217402061447501, -0.0001357043656753376,
+      21.831035614013672, -2.8585548400878906, -2.47735857963562, 21.05323600769043]
+  # Mount pose is NOT surveyed yet (the team's 11/02 report says so too). Measure these three
+  # and the pipeline switches to metric geometry on its own. Pitch is positive looking down.
+  mount:
+    height_m: null      # lens center above the floor
+    pitch_deg: null     # angle below horizontal of the optical axis
+    x_m: null           # lens center ahead of the rear axle
+    y_m: 0.0            # + = left of the car's center line
+    roll_deg: 0.0
+    yaw_deg: 0.0
+
+# Alternative to the mount pose: four floor correspondences (ignores lens distortion).
+# Fill in to enable BEV and metric Pure Pursuit. image_points use model-input pixels (320x120);
+# ground_points are meters in the rear-axle frame (x forward, y left), measured on the floor.
+# Left null: the pipeline runs the image-space baseline and reports no metric values.
+calibration:
+  image_points: null
+  ground_points: null
+
+pure_pursuit:
+  lookahead_base_m: 0.60        # safe default, tune on the car
+  lookahead_speed_gain_s: 0.50
+  lookahead_min_m: 0.50
+  lookahead_max_m: 1.50
+
+image_baseline:
+  lookahead_px: 70.0            # image distance from bottom center to the target
+  kp: 1.5                       # uncalibrated gain
+  turn_ref_rad: 1.0             # uncalibrated: path turning treated as a full bend for speed planning
+
+perception:
+  # linenet:  weights/linenet.onnx      12-frame F1 lit 0.78, tunnel 0.74, about 5 ms on the dev PC CPU
+  # twinlite: weights/twinlite_ft.onnx  12-frame F1 lit 0.89, tunnel 0.48, about 80 ms on the dev PC CPU
+  # (--model must point at the matching weights; Jetson speed is not measured)
+  backend: linenet
+  twinlite_repo: ../third_party/TwinLiteNet   # only for .pt weights; .onnx needs no checkout
+  threshold: 0.5
+  use_gamma: true               # must match training
+
+tracking:
+  ema_alpha: 0.4
+  conf_ok: 0.45
+  conf_min: 0.20
+  jump_px: 40.0
+  jump_reject_frames: 3
+  missing_timeout_s: 0.30
+
+safety:
+  frame_timeout_s: 0.30
+
+bev_view:
+  x_range_m: 3.0
+  y_half_m: 1.0
+  pixels_per_m: 100

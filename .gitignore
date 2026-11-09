@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+*.zip
+*.npz
+runs/
+line_cnn/out/**/*.mp4

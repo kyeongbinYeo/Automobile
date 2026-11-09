@@ -1,0 +1,9 @@
+numpy
+opencv-python
+onnxruntime
+pyyaml
+# training and ONNX export only
+torch
+onnx
+# optional: memory and CPU figures in summary.json
+psutil

@@ -1,0 +1,58 @@
+{
+ "evaluation_type": "open-loop perception and controller output (no vehicle in the loop)",
+ "mode": "image_baseline",
+ "backend": "onnx",
+ "frames": 716,
+ "states": {
+  "VALID": 352,
+  "TEMP_MISSING": 243,
+  "LOW_CONFIDENCE": 97,
+  "LOST": 24
+ },
+ "confidence_mean": 0.521,
+ "steer_abs_step_mean": 0.0743,
+ "steer_abs_step_p99": 0.25,
+ "latency_ms": {
+  "acquire": {
+   "mean": 111.431,
+   "p50": 113.792,
+   "p99": 221.075
+  },
+  "preprocess": {
+   "mean": 2.787,
+   "p50": 2.634,
+   "p99": 5.519
+  },
+  "inference": {
+   "mean": 5.875,
+   "p50": 5.551,
+   "p99": 11.149
+  },
+  "geometry": {
+   "mean": 9.46,
+   "p50": 8.851,
+   "p99": 21.673
+  },
+  "control": {
+   "mean": 0.173,
+   "p50": 0.158,
+   "p99": 0.454
+  },
+  "total": {
+   "mean": 18.296,
+   "p50": 17.404,
+   "p99": 38.002
+  }
+ },
+ "fps_processed_including_debug_output": 5.6,
+ "process_peak_rss_mb": 182.1,
+ "process_cpu_percent": 112.6,
+ "not_available": [
+  "closed-loop tracking error",
+  "track completion",
+  "lane departures",
+  "Jetson latency",
+  "drivable-area IoU (no ground truth)",
+  "centerline error (no ground truth)"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "per_frame": {
+  "100": [
+   1.0,
+   0.694
+  ],
+  "125": [
+   0.802,
+   0.571
+  ],
+  "395": [
+   0.898,
+   0.742
+  ],
+  "425": [
+   1.0,
+   0.662
+  ],
+  "460": [
+   1.0,
+   0.597
+  ],
+  "700": [
+   1.0,
+   0.477
+  ],
+  "710": [
+   1.0,
+   0.814
+  ],
+  "255": [
+   1.0,
+   0.338
+  ],
+  "270": [
+   0.667,
+   0.521
+  ],
+  "280": [
+   0.645,
+   1.0
+  ],
+  "595": [
+   0.303,
+   1.0
+  ],
+  "620": [
+   1.0,
+   0.893
+  ]
+ },
+ "lit": {
+  "P": 0.957,
+  "R": 0.651,
+  "F1": 0.775
+ },
+ "dark": {
+  "P": 0.723,
+  "R": 0.75,
+  "F1": 0.736
+ },
+ "params": 13042,
+ "config": {
+  "data": "C:\\Users\\ejrgu\\AppData\\Local\\Temp\\claude\\285064f5116d6516\\4cb0da36-bbb1-4d0d-b28d-f79e52dd1a10\\scratchpad\\real.npz",
+  "out": "C:\\Users\\ejrgu\\AppData\\Local\\Temp\\claude\\285064f5116d6516\\4cb0da36-bbb1-4d0d-b28d-f79e52dd1a10\\scratchpad\\runs\\pass2",
+  "epochs": 30,
+  "batch": 16,
+  "lr": 0.003,
+  "base": 16,
+  "loss": "focal_dice",
+  "pos_weight": 8.0,
+  "gamma": true,
+  "dark_aug": 0.25,
+  "dark_weight": 0.5,
+  "no_dark": false,
+  "seed": 0
+ }
+}
